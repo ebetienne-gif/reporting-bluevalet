@@ -188,13 +188,14 @@
   /* ── TAB NAV ── */
   .tab-nav {
     display: flex;
-    gap: 8px;
+    gap: 6px;
     margin-bottom: 28px;
     background: var(--white);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 6px;
+    padding: 5px;
     box-shadow: var(--shadow);
+    overflow: hidden;
   }
 
   .tab-btn {
@@ -205,12 +206,13 @@
     font-family: 'Nunito', sans-serif;
     font-size: 0.88rem;
     font-weight: 700;
-    padding: 12px 20px;
+    padding: 12px 16px;
     cursor: pointer;
     transition: all 0.2s;
-    border-radius: var(--radius-sm);
+    border-radius: 8px;
     text-align: center;
     line-height: 1.3;
+    outline: none;
   }
 
   .tab-btn:hover {
@@ -221,7 +223,6 @@
   .tab-btn.active {
     background: var(--blue);
     color: white;
-    box-shadow: 0 4px 14px rgba(59,91,219,0.3);
   }
 
   .tab-sub {
@@ -792,28 +793,37 @@
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
+    align-items: center;
   }
 
   .site-pill {
     background: var(--bg);
-    border: 1px solid var(--border);
+    border: 2px solid var(--border);
     color: var(--muted);
     font-family: 'Nunito', sans-serif;
     font-size: 0.82rem;
     font-weight: 700;
-    padding: 7px 16px;
+    padding: 6px 16px;
     border-radius: 20px;
     cursor: pointer;
     transition: all 0.15s;
+    line-height: 1.4;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
   }
 
-  .site-pill:hover { background: var(--blue-soft); color: var(--blue); border-color: var(--blue-mid); }
+  .site-pill:focus { outline: none; }
+  .site-pill:hover { background: var(--blue-soft); color: var(--blue); border-color: var(--blue); }
 
   .site-pill.active {
     background: var(--blue);
     color: white;
     border-color: var(--blue);
-    box-shadow: 0 3px 10px rgba(59,91,219,0.25);
+    outline: none;
   }
 
   /* ── SITE DETAIL ── */
@@ -889,9 +899,87 @@
 
   .sd-kpi-sub { font-size: 0.74rem; font-weight: 600; }
 
-  .sd-table-wrap { }
+  .sd-table-wrap {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow-x: auto;
+    margin-top: 4px;
+  }
 
-  .sd-table td:first-child { min-width: 140px; }
+  .sd-table {
+    width: 100%;
+    min-width: 480px;
+  }
+
+  .sd-table th {
+    font-size: 0.63rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: right;
+    padding: 12px 16px 12px 0;
+    border-bottom: 2px solid var(--blue-mid);
+    white-space: nowrap;
+  }
+
+  .sd-table th:first-child { text-align: left; padding-left: 16px; }
+
+  .sd-table td {
+    padding: 10px 16px 10px 0;
+    border-bottom: 1px solid var(--border);
+    text-align: right;
+    font-size: 0.82rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .sd-table td:first-child {
+    text-align: left;
+    padding-left: 16px;
+    min-width: 130px;
+    font-weight: 500;
+  }
+
+  .sd-table tr:last-child td { border-bottom: none; }
+  .sd-table tr.total td { color: var(--blue); font-weight: 800; }
+  .sd-table tr:hover td { background: var(--blue-soft); }
+
+  /* ── RESPONSIVE — compare tab ── */
+  @media (max-width: 680px) {
+    .site-selector-pills { gap: 6px; }
+    .site-pill { font-size: 0.75rem; padding: 6px 12px; }
+
+    .sd-hero {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 16px 18px;
+    }
+
+    .sd-hero-left { flex-wrap: wrap; gap: 8px; }
+    .sd-hero-right { display: none; }
+
+    .sd-kpis {
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .sd-kpi-val { font-size: 1.2rem; }
+
+    .sd-table-wrap { border-radius: var(--radius-sm); }
+    .sd-table { min-width: 420px; }
+    .sd-table th, .sd-table td { padding: 8px 10px 8px 0; font-size: 0.76rem; }
+    .sd-table td:first-child { padding-left: 10px; min-width: 110px; }
+    .sd-table th:first-child { padding-left: 10px; }
+  }
+
+  @media (max-width: 400px) {
+    .sd-kpis { grid-template-columns: 1fr; }
+    .site-pill { font-size: 0.7rem; padding: 5px 10px; }
+  }
 
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(12px); }
@@ -1554,7 +1642,7 @@
           <div class="sd-kpi positive"><div class="sd-kpi-label">Parkings YTD</div><div class="sd-kpi-val">14,6%</div><div class="sd-kpi-sub up">▼ −2,0 pts vs 2025</div></div>
           <div class="sd-kpi"><div class="sd-kpi-label">Ops Sites YTD</div><div class="sd-kpi-val">11,8%</div><div class="sd-kpi-sub up">▼ −5,1 pts vs 2025</div></div>
         </div>
-        <div class="sd-table-wrap"><table class="data-table sd-table"><thead><tr><th style="text-align:left">Indicateur</th><th>Mars 2026</th><th>YTD 2026</th><th>YTD 2025</th><th>Évol. pts</th></tr></thead><tbody>
+        <div class="sd-table-wrap"><table class="sd-table"><thead><tr><th style="text-align:left">Indicateur</th><th>Mars 2026</th><th>YTD 2026</th><th>YTD 2025</th><th>Évol. pts</th></tr></thead><tbody>
           <tr class="total"><td>CA HT</td><td>119,5 K€</td><td>340,1 K€</td><td>316,6 K€</td><td class="up">+7,4%</td></tr>
           <tr><td>Parkings</td><td>16,5 K€ (13,8%)</td><td>49,6 K€ (14,6%)</td><td>52,6 K€ (16,6%)</td><td class="up">−2,0 pts</td></tr>
           <tr><td>MO Sites</td><td>38,6 K€ (32,3%)</td><td>107,3 K€ (31,5%)</td><td>105,2 K€ (33,2%)</td><td class="up">−1,7 pts</td></tr>
@@ -1573,7 +1661,7 @@
           <div class="sd-kpi neutral"><div class="sd-kpi-label">Parkings YTD</div><div class="sd-kpi-val">20,5%</div><div class="sd-kpi-sub warn">▲ +0,3 pts vs 2025</div></div>
           <div class="sd-kpi"><div class="sd-kpi-label">Ops Sites YTD</div><div class="sd-kpi-val">8,7%</div><div class="sd-kpi-sub up">▼ −0,7 pts vs 2025</div></div>
         </div>
-        <div class="sd-table-wrap"><table class="data-table sd-table"><thead><tr><th style="text-align:left">Indicateur</th><th>Mars 2026</th><th>YTD 2026</th><th>YTD 2025</th><th>Évol. pts</th></tr></thead><tbody>
+        <div class="sd-table-wrap"><table class="sd-table"><thead><tr><th style="text-align:left">Indicateur</th><th>Mars 2026</th><th>YTD 2026</th><th>YTD 2025</th><th>Évol. pts</th></tr></thead><tbody>
           <tr class="total"><td>CA HT</td><td>111,2 K€</td><td>389,1 K€</td><td>346,4 K€</td><td class="up">+12,3%</td></tr>
           <tr><td>Parkings</td><td>18,5 K€ (16,6%)</td><td>80,0 K€ (20,5%)</td><td>70,1 K€ (20,2%)</td><td class="warn">+0,3 pts</td></tr>
           <tr><td>MO Sites</td><td>28,5 K€ (25,6%)</td><td>99,5 K€ (25,6%)</td><td>91,5 K€ (26,4%)</td><td class="up">−0,8 pts</td></tr>
@@ -1592,7 +1680,7 @@
           <div class="sd-kpi positive"><div class="sd-kpi-label">Parkings YTD</div><div class="sd-kpi-val">13,4%</div><div class="sd-kpi-sub up">▼ −10,0 pts vs 2025</div></div>
           <div class="sd-kpi"><div class="sd-kpi-label">Ops Sites YTD</div><div class="sd-kpi-val">8,5%</div><div class="sd-kpi-sub up">▼ −1,3 pts vs 2025</div></div>
         </div>
-        <div class="sd-table-wrap"><table class="data-table sd-table"><thead><tr><th style="text-align:left">Indicateur</th><th>Mars 2026</th><th>YTD 2026</th><th>YTD 2025</th><th>Évol. pts</th></tr></thead><tbody>
+        <div class="sd-table-wrap"><table class="sd-table"><thead><tr><th style="text-align:left">Indicateur</th><th>Mars 2026</th><th>YTD 2026</th><th>YTD 2025</th><th>Évol. pts</th></tr></thead><tbody>
           <tr class="total"><td>CA HT</td><td>98,1 K€</td><td>336,8 K€</td><td>311,3 K€</td><td class="up">+8,2%</td></tr>
           <tr><td>Parkings</td><td>15,0 K€ (15,3%)</td><td>45,0 K€ (13,4%)</td><td>72,8 K€ (23,4%)</td><td class="up">−10,0 pts</td></tr>
           <tr><td>MO Sites</td><td>23,6 K€ (24,1%)</td><td>79,7 K€ (23,7%)</td><td>82,9 K€ (26,6%)</td><td class="up">−2,9 pts</td></tr>
@@ -1611,7 +1699,7 @@
           <div class="sd-kpi neutral"><div class="sd-kpi-label">Parkings YTD</div><div class="sd-kpi-val">28,1%</div><div class="sd-kpi-sub warn">▲ +0,1 pts vs 2025</div></div>
           <div class="sd-kpi"><div class="sd-kpi-label">Ops Sites YTD</div><div class="sd-kpi-val">18,7%</div><div class="sd-kpi-sub down">▲ +11,6 pts vs 2025</div></div>
         </div>
-        <div class="sd-table-wrap"><table class="data-table sd-table"><thead><tr><th style="text-align:left">Indicateur</th><th>Mars 2026</th><th>YTD 2026</th><th>YTD 2025</th><th>Évol. pts</th></tr></thead><tbody>
+        <div class="sd-table-wrap"><table class="sd-table"><thead><tr><th style="text-align:left">Indicateur</th><th>Mars 2026</th><th>YTD 2026</th><th>YTD 2025</th><th>Évol. pts</th></tr></thead><tbody>
           <tr class="total"><td>CA HT</td><td>91,7 K€</td><td>294,1 K€</td><td>302,1 K€</td><td class="down">−2,6%</td></tr>
           <tr><td>Parkings</td><td>27,6 K€ (30,1%)</td><td>82,7 K€ (28,1%)</td><td>84,7 K€ (28,0%)</td><td class="warn">+0,1 pts</td></tr>
           <tr><td>MO Sites</td><td>24,8 K€ (27,1%)</td><td>76,1 K€ (25,9%)</td><td>98,3 K€ (32,5%)</td><td class="up">−6,6 pts</td></tr>
@@ -1630,7 +1718,7 @@
           <div class="sd-kpi positive"><div class="sd-kpi-label">Parkings YTD</div><div class="sd-kpi-val">6,4%</div><div class="sd-kpi-sub up">▼ −1,6 pts vs 2025</div></div>
           <div class="sd-kpi"><div class="sd-kpi-label">Ops Sites YTD</div><div class="sd-kpi-val">23,2%</div><div class="sd-kpi-sub down">▲ +14,2 pts vs 2025</div></div>
         </div>
-        <div class="sd-table-wrap"><table class="data-table sd-table"><thead><tr><th style="text-align:left">Indicateur</th><th>Mars 2026</th><th>YTD 2026</th><th>YTD 2025</th><th>Évol. pts</th></tr></thead><tbody>
+        <div class="sd-table-wrap"><table class="sd-table"><thead><tr><th style="text-align:left">Indicateur</th><th>Mars 2026</th><th>YTD 2026</th><th>YTD 2025</th><th>Évol. pts</th></tr></thead><tbody>
           <tr class="total"><td>CA HT</td><td>57,2 K€</td><td>155,7 K€</td><td>159,7 K€</td><td class="down">−2,5%</td></tr>
           <tr><td>Parkings</td><td>0,4 K€ (0,7%)</td><td>10,0 K€ (6,4%)</td><td>12,7 K€ (8,0%)</td><td class="up">−1,6 pts</td></tr>
           <tr><td>MO Sites</td><td>17,4 K€ (30,3%)</td><td>45,9 K€ (29,5%)</td><td>52,9 K€ (33,1%)</td><td class="up">−3,6 pts</td></tr>
@@ -1649,7 +1737,7 @@
           <div class="sd-kpi neutral"><div class="sd-kpi-label">Parkings YTD</div><div class="sd-kpi-val">14,1%</div><div class="sd-kpi-sub warn">▲ +1,9 pts vs 2025</div></div>
           <div class="sd-kpi"><div class="sd-kpi-label">Ops Sites YTD</div><div class="sd-kpi-val">8,5%</div><div class="sd-kpi-sub up">▲ +3,9 pts vs 2025</div></div>
         </div>
-        <div class="sd-table-wrap"><table class="data-table sd-table"><thead><tr><th style="text-align:left">Indicateur</th><th>Mars 2026</th><th>YTD 2026</th><th>YTD 2025</th><th>Évol. pts</th></tr></thead><tbody>
+        <div class="sd-table-wrap"><table class="sd-table"><thead><tr><th style="text-align:left">Indicateur</th><th>Mars 2026</th><th>YTD 2026</th><th>YTD 2025</th><th>Évol. pts</th></tr></thead><tbody>
           <tr class="total"><td>CA HT</td><td>52,4 K€</td><td>154,0 K€</td><td>150,6 K€</td><td class="up">+2,3%</td></tr>
           <tr><td>Parkings</td><td>7,1 K€ (13,5%)</td><td>21,7 K€ (14,1%)</td><td>18,4 K€ (12,2%)</td><td class="warn">+1,9 pts</td></tr>
           <tr><td>MO Sites</td><td>19,4 K€ (37,0%)</td><td>61,2 K€ (39,7%)</td><td>41,3 K€ (27,4%)</td><td class="down">+12,3 pts</td></tr>
@@ -1668,7 +1756,7 @@
           <div class="sd-kpi positive"><div class="sd-kpi-label">Parkings YTD</div><div class="sd-kpi-val">22,5%</div><div class="sd-kpi-sub up">▼ −3,9 pts vs 2025</div></div>
           <div class="sd-kpi"><div class="sd-kpi-label">Ops Sites YTD</div><div class="sd-kpi-val">4,9%</div><div class="sd-kpi-sub up">▲ +0,3 pts vs 2025</div></div>
         </div>
-        <div class="sd-table-wrap"><table class="data-table sd-table"><thead><tr><th style="text-align:left">Indicateur</th><th>Mars 2026</th><th>YTD 2026</th><th>YTD 2025</th><th>Évol. pts</th></tr></thead><tbody>
+        <div class="sd-table-wrap"><table class="sd-table"><thead><tr><th style="text-align:left">Indicateur</th><th>Mars 2026</th><th>YTD 2026</th><th>YTD 2025</th><th>Évol. pts</th></tr></thead><tbody>
           <tr class="total"><td>CA HT</td><td>44,5 K€</td><td>124,0 K€</td><td>105,1 K€</td><td class="up">+18,0%</td></tr>
           <tr><td>Parkings</td><td>9,3 K€ (21,0%)</td><td>27,9 K€ (22,5%)</td><td>27,7 K€ (26,4%)</td><td class="up">−3,9 pts</td></tr>
           <tr><td>MO Sites</td><td>11,7 K€ (26,2%)</td><td>31,5 K€ (25,4%)</td><td>32,5 K€ (30,9%)</td><td class="up">−5,5 pts</td></tr>
@@ -1687,7 +1775,7 @@
           <div class="sd-kpi neutral"><div class="sd-kpi-label">Parkings YTD</div><div class="sd-kpi-val">24,8%</div><div class="sd-kpi-sub warn">▲ +3,1 pts vs 2025</div></div>
           <div class="sd-kpi"><div class="sd-kpi-label">Ops Sites YTD</div><div class="sd-kpi-val">9,1%</div><div class="sd-kpi-sub down">▲ +2,8 pts vs 2025</div></div>
         </div>
-        <div class="sd-table-wrap"><table class="data-table sd-table"><thead><tr><th style="text-align:left">Indicateur</th><th>Mars 2026</th><th>YTD 2026</th><th>YTD 2025</th><th>Évol. pts</th></tr></thead><tbody>
+        <div class="sd-table-wrap"><table class="sd-table"><thead><tr><th style="text-align:left">Indicateur</th><th>Mars 2026</th><th>YTD 2026</th><th>YTD 2025</th><th>Évol. pts</th></tr></thead><tbody>
           <tr class="total"><td>CA HT</td><td>35,1 K€</td><td>99,7 K€</td><td>97,4 K€</td><td class="up">+2,4%</td></tr>
           <tr><td>Parkings</td><td>8,2 K€ (23,4%)</td><td>24,8 K€ (24,8%)</td><td>21,1 K€ (21,7%)</td><td class="warn">+3,1 pts</td></tr>
           <tr><td>MO Sites</td><td>16,0 K€ (45,4%)</td><td>43,3 K€ (43,4%)</td><td>35,5 K€ (36,5%)</td><td class="down">+6,9 pts</td></tr>
@@ -1706,7 +1794,7 @@
           <div class="sd-kpi positive"><div class="sd-kpi-label">Parkings YTD</div><div class="sd-kpi-val">17,8%</div><div class="sd-kpi-sub up">▼ −5,6 pts vs 2025</div></div>
           <div class="sd-kpi"><div class="sd-kpi-label">Ops Sites YTD</div><div class="sd-kpi-val">7,2%</div><div class="sd-kpi-sub down">▲ +3,0 pts vs 2025</div></div>
         </div>
-        <div class="sd-table-wrap"><table class="data-table sd-table"><thead><tr><th style="text-align:left">Indicateur</th><th>Mars 2026</th><th>YTD 2026</th><th>YTD 2025</th><th>Évol. pts</th></tr></thead><tbody>
+        <div class="sd-table-wrap"><table class="sd-table"><thead><tr><th style="text-align:left">Indicateur</th><th>Mars 2026</th><th>YTD 2026</th><th>YTD 2025</th><th>Évol. pts</th></tr></thead><tbody>
           <tr class="total"><td>CA HT</td><td>29,0 K€</td><td>81,8 K€</td><td>77,9 K€</td><td class="up">+5,0%</td></tr>
           <tr><td>Parkings</td><td>4,6 K€ (15,9%)</td><td>14,5 K€ (17,8%)</td><td>18,2 K€ (23,4%)</td><td class="up">−5,6 pts</td></tr>
           <tr><td>MO Sites</td><td>9,8 K€ (33,9%)</td><td>27,3 K€ (33,4%)</td><td>19,3 K€ (24,8%)</td><td class="down">+8,6 pts</td></tr>
@@ -1725,7 +1813,7 @@
           <div class="sd-kpi neutral"><div class="sd-kpi-label">Parkings YTD</div><div class="sd-kpi-val">35,0%</div><div class="sd-kpi-sub dim">—</div></div>
           <div class="sd-kpi"><div class="sd-kpi-label">Ops Sites YTD</div><div class="sd-kpi-val">16,3%</div><div class="sd-kpi-sub dim">—</div></div>
         </div>
-        <div class="sd-table-wrap"><table class="data-table sd-table"><thead><tr><th style="text-align:left">Indicateur</th><th>Mars 2026</th><th>YTD 2026</th><th>YTD 2025</th><th>Note</th></tr></thead><tbody>
+        <div class="sd-table-wrap"><table class="sd-table"><thead><tr><th style="text-align:left">Indicateur</th><th>Mars 2026</th><th>YTD 2026</th><th>YTD 2025</th><th>Note</th></tr></thead><tbody>
           <tr class="total"><td>CA HT</td><td>21,8 K€</td><td>57,9 K€</td><td>—</td><td class="warn">Nouveau site</td></tr>
           <tr><td>Parkings</td><td>7,1 K€ (32,7%)</td><td>20,3 K€ (35,0%)</td><td>—</td><td class="dim">—</td></tr>
           <tr><td>MO Sites</td><td>11,8 K€ (53,8%)</td><td>31,6 K€ (54,6%)</td><td>—</td><td class="dim">—</td></tr>
@@ -1744,7 +1832,7 @@
           <div class="sd-kpi negative"><div class="sd-kpi-label">Parkings YTD</div><div class="sd-kpi-val">37,8%</div><div class="sd-kpi-sub down">▲ +5,4 pts vs 2025</div></div>
           <div class="sd-kpi"><div class="sd-kpi-label">Ops Sites YTD</div><div class="sd-kpi-val">6,1%</div><div class="sd-kpi-sub down">▼ −5,0 pts vs 2025</div></div>
         </div>
-        <div class="sd-table-wrap"><table class="data-table sd-table"><thead><tr><th style="text-align:left">Indicateur</th><th>Mars 2026</th><th>YTD 2026</th><th>YTD 2025</th><th>Évol. pts</th></tr></thead><tbody>
+        <div class="sd-table-wrap"><table class="sd-table"><thead><tr><th style="text-align:left">Indicateur</th><th>Mars 2026</th><th>YTD 2026</th><th>YTD 2025</th><th>Évol. pts</th></tr></thead><tbody>
           <tr class="total"><td>CA HT</td><td>9,8 K€</td><td>31,8 K€</td><td>38,3 K€</td><td class="down">−17,0%</td></tr>
           <tr><td>Parkings</td><td>4,0 K€ (41,0%)</td><td>12,0 K€ (37,8%)</td><td>12,4 K€ (32,4%)</td><td class="warn">+5,4 pts</td></tr>
           <tr><td>MO Sites</td><td>2,8 K€ (29,1%)</td><td>9,7 K€ (30,4%)</td><td>9,7 K€ (25,3%)</td><td class="down">+5,1 pts</td></tr>
@@ -1763,7 +1851,7 @@
           <div class="sd-kpi neutral"><div class="sd-kpi-label">Parkings YTD</div><div class="sd-kpi-val">40,1%</div><div class="sd-kpi-sub warn">▲ +0,6 pts vs 2025</div></div>
           <div class="sd-kpi"><div class="sd-kpi-label">Ops Sites YTD</div><div class="sd-kpi-val">0,5%</div><div class="sd-kpi-sub dim">—</div></div>
         </div>
-        <div class="sd-table-wrap"><table class="data-table sd-table"><thead><tr><th style="text-align:left">Indicateur</th><th>Mars 2026</th><th>YTD 2026</th><th>YTD 2025</th><th>Évol. pts</th></tr></thead><tbody>
+        <div class="sd-table-wrap"><table class="sd-table"><thead><tr><th style="text-align:left">Indicateur</th><th>Mars 2026</th><th>YTD 2026</th><th>YTD 2025</th><th>Évol. pts</th></tr></thead><tbody>
           <tr class="total"><td>CA HT</td><td>7,4 K€</td><td>22,0 K€</td><td>21,7 K€</td><td class="up">+1,4%</td></tr>
           <tr><td>Parkings</td><td>3,0 K€ (40,2%)</td><td>8,8 K€ (40,1%)</td><td>8,6 K€ (39,5%)</td><td class="warn">+0,6 pts</td></tr>
           <tr><td>MO Sites</td><td>0,0 K€</td><td>0,0 K€</td><td>0,0 K€</td><td class="dim">—</td></tr>
@@ -1782,7 +1870,7 @@
           <div class="sd-kpi"><div class="sd-kpi-label">Parkings YTD</div><div class="sd-kpi-val">0,0%</div><div class="sd-kpi-sub dim">—</div></div>
           <div class="sd-kpi"><div class="sd-kpi-label">Ops Sites YTD</div><div class="sd-kpi-val">0,0%</div><div class="sd-kpi-sub dim">—</div></div>
         </div>
-        <div class="sd-table-wrap"><table class="data-table sd-table"><thead><tr><th style="text-align:left">Indicateur</th><th>Mars 2026</th><th>YTD 2026</th><th>YTD 2025</th><th>Évol.</th></tr></thead><tbody>
+        <div class="sd-table-wrap"><table class="sd-table"><thead><tr><th style="text-align:left">Indicateur</th><th>Mars 2026</th><th>YTD 2026</th><th>YTD 2025</th><th>Évol.</th></tr></thead><tbody>
           <tr class="total"><td>CA HT</td><td>1,4 K€</td><td>5,2 K€</td><td>4,5 K€</td><td class="up">+15,6%</td></tr>
           <tr><td>Parkings</td><td>0,0 K€</td><td>0,0 K€</td><td>0,0 K€</td><td class="dim">—</td></tr>
           <tr><td>MO Sites</td><td>0,0 K€</td><td>0,0 K€</td><td>0,0 K€</td><td class="dim">—</td></tr>
@@ -1796,7 +1884,7 @@
     <!-- FOOTER -->
     <footer>
       <span class="footer-logo">bluevalet</span>
-      <span>Reporting_03_2026_v15_04.xlsx · 37 onglets</span>
+      <span>Reporting_03_2026_v15_04.xlsx</span>
       <span>Données au 15/04/2026 · Mois de référence : Mars 2026</span>
     </footer>
 
